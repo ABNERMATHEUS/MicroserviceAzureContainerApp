@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  frontend-blazor:
+    build:
+      context: .
+      dockerfile: MicroservicesAzureContainerApp.UI/Dockerfile
+    ports:
+      - "5100:80"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+    networks:
+      - local
+
+  microservice-api:
+    build:
+      context: .
+      dockerfile: MicroservicesAzureContainerApp.API/Dockerfile
+    ports:
+    - "5104:80"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+    networks:
+      - local
+
+networks:
+  local:
+    driver: bridge
+    
+
